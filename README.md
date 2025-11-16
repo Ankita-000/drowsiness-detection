@@ -1,8 +1,4 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import letter
 
-text = """
 # Drowsiness Detection System (OpenCV + ESP32)
 
 A real-time computer vision system that detects drowsiness using face & eye tracking, and triggers a 3-stage hardware alert using an ESP32 board (LED → Buzzer → Vibration Motor).
@@ -78,24 +74,5 @@ I built the full real-time detection pipeline using OpenCV (face + eye detection
 MIT License.
 """
 
-styles = getSampleStyleSheet()
-story = []
 
-for line in text.split("\n"):
-    if line.startswith("# "):
-        style = styles['Heading1']
-        line = line[2:]
-    elif line.startswith("## "):
-        style = styles['Heading2']
-        line = line[3:]
-    else:
-        style = styles['BodyText']
-    story.append(Paragraph(line, style))
-    story.append(Spacer(1, 12))
-
-pdf_path = "/mnt/data/drowsiness_readme.pdf"
-doc = SimpleDocTemplate(pdf_path, pagesize=letter)
-doc.build(story)
-
-pdf_path
 
