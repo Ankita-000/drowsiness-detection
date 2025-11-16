@@ -72,21 +72,17 @@ Select your ESP32 board → Upload.
    
 python src/detection.py --serial_port COM6 --threshold 10
 
-Examples of serial ports:
-Windows: COM6
-Linux: /dev/ttyUSB0
-Mac: /dev/cu.usbserial*
 
 
 
 
-##My Contributions
+## My Contributions
 
 I built the full real-time detection pipeline using OpenCV (face + eye detection), created the drowsiness logic using consecutive-frame thresholding, implemented serial communication to ESP32, and wrote the ESP32 firmware to control LED, buzzer, and vibration motors. I designed and tested the complete 3-stage alert workflow and documented the project with a demo.
 
 
 
-🔮 Future Improvements
+## 🔮 Future Improvements
 
 *Replace Haar cascades with CNN-based eye state classifier
 *Integrate YOLO or MediaPipe FaceMesh
