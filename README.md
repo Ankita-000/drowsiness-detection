@@ -57,15 +57,18 @@ drowsiness-detection/
 
 
 
+### **1. Install Dependencies**
+```bash
+pip install -r requirements.txt
 
 
-2. Upload ESP32 Firmware
+### **2. Upload ESP32 Firmware**
 Open esp32/alert_system.ino in Arduino IDE
 Select your ESP32 board → Upload.
 
 
 
-3. Run Detection Script
+### **3. Run Detection Script**
    
 python src/detection.py --serial_port COM6 --threshold 10
 
@@ -77,7 +80,7 @@ Mac: /dev/cu.usbserial*
 
 
 
-My Contributions
+##My Contributions
 
 I built the full real-time detection pipeline using OpenCV (face + eye detection), created the drowsiness logic using consecutive-frame thresholding, implemented serial communication to ESP32, and wrote the ESP32 firmware to control LED, buzzer, and vibration motors. I designed and tested the complete 3-stage alert workflow and documented the project with a demo.
 
