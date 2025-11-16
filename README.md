@@ -21,13 +21,16 @@ Ideal for understanding real-time ML, CV pipelines, and embedded systems.
 
 ---
 
+
+
+
 ## 🧠 System Architecture
 Camera Feed → OpenCV Face & Eye Detection → Drowsiness Logic (frames threshold)
 ↓
-Serial Message (ALERT1/2/3)
+Serial Message (ALERT1 / ALERT2 / ALERT3)
 ↓
 ESP32 Hardware Alerts
-(LED → Buzzer → Vibration Motor depending on stage)
+(LED → Buzzer → Vibration Motor depending on stage
 
 
 
@@ -55,41 +58,20 @@ drowsiness-detection/
 
 
 
-drowsiness-detection/
-│── src/
-│ ├── detection.py
-│ ├── haarcascade_eye.xml
-│ └── haarcascade_frontalface_default.xml
-│
-│── esp32/
-│ └── alert_system.ino
-│
-│── assets/
-│ ├── screenshots/
-│ └── demo.mp4 (optional - add your demo video here)
-│
-└── requirements.txt
-
-
-
 
 2. Upload ESP32 Firmware
-
 Open esp32/alert_system.ino in Arduino IDE
 Select your ESP32 board → Upload.
 
 
 
 3. Run Detection Script
+   
 python src/detection.py --serial_port COM6 --threshold 10
 
-
 Examples of serial ports:
-
 Windows: COM6
-
 Linux: /dev/ttyUSB0
-
 Mac: /dev/cu.usbserial*
 
 
@@ -103,10 +85,7 @@ I built the full real-time detection pipeline using OpenCV (face + eye detection
 
 🔮 Future Improvements
 
-Replace Haar cascades with CNN-based eye state classifier
-
-Integrate YOLO or MediaPipe FaceMesh
-
-Deploy on Raspberry Pi / Jetson Nano
-
-Add a cloud dashboard for monitoring
+*Replace Haar cascades with CNN-based eye state classifier
+*Integrate YOLO or MediaPipe FaceMesh
+*Deploy on Raspberry Pi / Jetson Nano
+*Add a cloud dashboard for monitoring
