@@ -1,90 +1,101 @@
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter
+
+text = """
 # Drowsiness Detection System (OpenCV + ESP32)
 
-A real-time computer vision system that detects drowsiness using face & eye tracking, and triggers a **3-stage hardware alert** using an ESP32 board (LED → Buzzer → Vibration Motor).  
-This project demonstrates practical end-to-end ML engineering: **real-time CV → decision logic → embedded hardware integration**.
+A real-time computer vision system that detects drowsiness using face & eye tracking, and triggers a 3-stage hardware alert using an ESP32 board (LED → Buzzer → Vibration Motor).
+This project demonstrates practical end-to-end ML engineering: real-time CV → decision logic → embedded hardware integration.
 
----
-
-##  Overview
+## Overview
 
 This system uses:
-
-- **OpenCV Haar Cascades** for face & eye detection  
-- **Consecutive-frame heuristic** to detect prolonged eye closure  
-- **Serial communication** to send alerts to ESP32  
-- **Three-level hardware alert system**:  
-  1️⃣ LED  
-  2️⃣ LED + Buzzer  
-  3️⃣ LED + Buzzer + Vibration  
+- OpenCV Haar Cascades for face & eye detection
+- Consecutive-frame heuristic to detect prolonged eye closure
+- Serial communication to send alerts to ESP32
+- Three-level hardware alert system:
+  1. LED
+  2. LED + Buzzer
+  3. LED + Buzzer + Vibration
 
 Ideal for understanding real-time ML, CV pipelines, and embedded systems.
 
----
+## System Architecture
 
-
-
-
-## 🧠 System Architecture
 Camera Feed → OpenCV Face & Eye Detection → Drowsiness Logic (frames threshold)
-↓
-Serial Message (ALERT1 / ALERT2 / ALERT3)
-↓
-ESP32 Hardware Alerts
-(LED → Buzzer → Vibration Motor depending on stage
+                     ↓
+           Serial Message (ALERT1 / ALERT2 / ALERT3)
+                     ↓
+               ESP32 Hardware Alerts
+     (LED → Buzzer → Vibration Motor depending on stage)
 
-
-
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 drowsiness-detection/
-│── src/
-│ ├── detection.py
-│ ├── haarcascade_eye.xml
-│ └── haarcascade_frontalface_default.xml
-│
-│── esp32/
-│ └── alert_system.ino
-│
-│── assets/
-│ ├── screenshots/
-│ └── demo.mp4 (optional - add your demo video here)
-│
-└── requirements.txt
+  src/
+    detection.py
+    haarcascade_eye.xml
+    haarcascade_frontalface_default.xml
+  esp32/
+    alert_system.ino
+  assets/
+    screenshots/
+  requirements.txt
 
+## Technologies Used
 
+- Python 3
+- OpenCV
+- PySerial
+- ESP32 / Arduino
+- Pygame (optional)
+- Webcam
 
+## Installation & Setup
 
-### **1. Install Dependencies**
+1. Install Dependencies:
+   pip install -r requirements.txt
 
-pip install -r requirements.txt
+2. Upload ESP32 Firmware:
+   Upload esp32/alert_system.ino through Arduino IDE.
 
-
-### **2. Upload ESP32 Firmware**
-Open esp32/alert_system.ino in Arduino IDE
-Select your ESP32 board → Upload.
-
-
-
-### **3. Run Detection Script**
-   
-python src/detection.py --serial_port COM6 --threshold 10
-
-
-
-
+3. Run Detection Script:
+   python src/detection.py --serial_port COM6 --threshold 10
 
 ## My Contributions
 
-I built the full real-time detection pipeline using OpenCV (face + eye detection), created the drowsiness logic using consecutive-frame thresholding, implemented serial communication to ESP32, and wrote the ESP32 firmware to control LED, buzzer, and vibration motors. I designed and tested the complete 3-stage alert workflow and documented the project with a demo.
+I built the full real-time detection pipeline using OpenCV (face + eye detection), created the drowsiness logic using consecutive-frame thresholding, implemented serial communication to ESP32, and wrote the ESP32 firmware to control LED, buzzer, and vibration motors. I designed and tested the complete 3-stage alert workflow and documented the project.
 
+## Future Improvements
 
+- Replace Haar cascades with CNN-based eye state classifier
+- Integrate YOLO or MediaPipe FaceMesh
+- Deploy on Raspberry Pi / Jetson Nano
+- Add a cloud dashboard for monitoring
 
-## 🔮 Future Improvements
+## License
+MIT License.
+"""
 
-*Replace Haar cascades with CNN-based eye state classifier
-*Integrate YOLO or MediaPipe FaceMesh
-*Deploy on Raspberry Pi / Jetson Nano
-*Add a cloud dashboard for monitoring
+styles = getSampleStyleSheet()
+story = []
+
+for line in text.split("\n"):
+    if line.startswith("# "):
+        style = styles['Heading1']
+        line = line[2:]
+    elif line.startswith("## "):
+        style = styles['Heading2']
+        line = line[3:]
+    else:
+        style = styles['BodyText']
+    story.append(Paragraph(line, style))
+    story.append(Spacer(1, 12))
+
+pdf_path = "/mnt/data/drowsiness_readme.pdf"
+doc = SimpleDocTemplate(pdf_path, pagesize=letter)
+doc.build(story)
+
+pdf_path
+
