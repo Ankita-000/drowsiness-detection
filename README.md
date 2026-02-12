@@ -58,6 +58,7 @@ drowsiness-detection/
 
 3. Run Detection Script:
    python src/detection.py --serial_port COM6 --threshold 10
+   
 
 ## My Contributions
 
